@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { BASE_URL } from '@api/index';
-
 interface PatchReserveHotelParams {
   name: string;
   check_in: string;
@@ -18,7 +16,7 @@ export const patchReserveHotel = () => {
     occupancy,
   }: PatchReserveHotelParams) => {
     try {
-      await axios.post(`${BASE_URL}/reserved`, {
+      await axios.post(`${process.env.REACT_APP_BASE_URL}/reserved`, {
         name,
         check_in,
         check_out,
@@ -38,7 +36,7 @@ export const patchReserveHotel = () => {
 export const fetchReserveHotels = async ({ pageParam = 1 }) => {
   try {
     const response = await axios.get(
-      `${BASE_URL}/reserved?_page=${pageParam}&_limit=10`,
+      `${process.env.REACT_APP_BASE_URL}/reserved?_page=${pageParam}&_limit=10`,
     );
     return response.data;
   } catch (error) {
